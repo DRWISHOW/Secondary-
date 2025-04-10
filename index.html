@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حاسبة معدل الثانوية العامة - الذكاء الاصطناعي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(145deg, #f0f4f8, #ffffff);
+      margin: 0;
+      padding: 0;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #0f172a;
+      margin-bottom: 30px;
+    }
+    .question {
+      margin-bottom: 40px;
+      padding: 20px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      margin: 10px 0;
+      font-size: 16px;
+      background-color: #e0f2fe;
+      border: 2px solid #0284c7;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #0c4a6e;
+      font-weight: bold;
+      transition: all 0.2s ease-in-out;
+    }
+    .options button:hover {
+      background-color: #bae6fd;
+    }
+    .range-inputs {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .range-inputs input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    .range-inputs button {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #10b981;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    .nav-buttons button {
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      background-color: #1d4ed8;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 40px;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      padding: 25px;
+      border-radius: 12px;
+      font-size: 20px;
+      text-align: center;
+      color: #166534;
+      font-weight: bold;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>حاسبة معدل الثانوية العامة الذكية</h1>
+    <div id="app"></div>
+  </div>
+
+  <div class="footer">
+    <p>برمجة وتصميم عبدالله الدرويش</p>
+    <p>جميع الحقوق محفوظة &copy; 2025</p>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        id: 'mood',
+        text: 'كيف كان شعورك العام أثناء فترة الامتحانات؟',
+        options: ['مرتاح وواثق', 'متوتر بس مسيطر', 'ضايع شوي', 'مكتئب أو مرهق نفسيًا', 'ما كنت حاس بأي شي'],
+        weight: 1
+      },
+      {
+        id: 'sleep',
+        text: 'كيف كان نومك خلال فترة الامتحانات؟',
+        options: ['منتظم جدًا', 'جيد نسبيًا', 'مضطرب شوي', 'ما كنت أنام', 'مش فاكر حتى'],
+        weight: 1
+      },
+      {
+        id: 'studyHabits',
+        text: 'هل كنت تذاكر بانتظام طول السنة؟',
+        options: ['نعم بشكل يومي', 'أغلب الأيام', 'فقط أيام المراجعة', 'قبل الامتحان بس', 'ولا يوم فعليًا'],
+        weight: 2
+      },
+      {
+        id: 'schoolPerformance',
+        text: 'كيف كان أدائك العام في المدرسة؟',
+        options: ['ممتاز', 'جيد جدًا', 'جيد', 'متوسط', 'ضعيف'],
+        weight: 2
+      },
+      {
+        id: 'stress',
+        text: 'هل كنت تشعر بضغط نفسي خلال فترة الامتحانات؟',
+        options: ['لا أبداً', 'قليل', 'متوسط', 'كثير', 'شديد جداً'],
+        weight: 1
+      },
+      {
+        id: 'confidence',
+        text: 'ما مدى ثقتك في إجاباتك؟',
+        options: ['مطمئن تمامًا', 'إلى حد ما', 'مش واثق', 'مشكك في بعض الإجابات', 'متأكد من أخطاءي'],
+        weight: 1
+      },
+      {
+        id: 'englishGrade',
+        text: 'توقّعك لمادة اللغة الإنجليزية؟',
+        type: 'range',
+        weight: 3
+      },
+      {
+        id: 'biologyGrade',
+        text: 'توقّعك لمادة الأحياء؟',
+        type: 'range',
+        weight: 3
+      },
+      {
+        id: 'cheating',
+        text: 'هل كنت تغش في الامتحانات؟',
+        options: ['لا أبداً', 'أحيانًا', 'غشيت في بعض المواد', 'غشيت في جميع المواد'],
+        weight: 2
+      },
+      {
+        id: 'sourceValidity',
+        text: 'هل كانت مصادر إجاباتك صحيحة وموثوقة؟',
+        options: ['نعم 100%', 'غالبًا كانت صحيحة', 'بعض الإجابات مشكوك فيها', 'غالبًا كانت خاطئة'],
+        weight: 3
+      },
+      {
+        id: 'arabicGrade',
+        text: 'توقّعك لمادة اللغة العربية؟ (أقل وأعلى درجة)',
+        type: 'range',
+        weight: 3
+      },
+      {
+        id: 'mathGrade',
+        text: 'توقّعك لمادة الرياضيات (تفاضل + جبر وهندسة = مادة واحدة)',
+        type: 'range',
+        weight: 3
+      },
+      {
+        id: 'quranGrade',
+        text: 'توقّعك لمادة القرآن الكريم؟',
+        type: 'range',
+        weight: 2
+      },
+      {
+        id: 'islamicGrade',
+        text: 'توقّعك لمادة التربية الإسلامية؟',
+        type: 'range',
+        weight: 2
+      },
+      {
+        id: 'chemistryGrade',
+        text: 'توقّعك لمادة الكيمياء؟',
+        type: 'range',
+        weight: 3
+      },
+      {
+        id: 'physicsGrade',
+        text: 'توقّعك لمادة الفيزياء؟',
+        type: 'range',
+        weight: 3
+      }
+    ];
+
+    let current = 0;
+    const answers = {};
+
+    function renderQuestion() {
+      const app = document.getElementById('app');
+      const q = questions[current];
+      let html = `<div class="question">
+        <h2>${q.text}</h2>`;
+
+      if (q.options) {
+        html += '<div class="options">';
+        q.options.forEach(opt => {
+          html += `<button onclick="answer('${q.id}', '${opt}')">${opt}</button>`;
+        });
+        html += '</div>';
+      } else if (q.type === 'range') {
+        html += `<div class="range-inputs">
+          <input type="number" placeholder="أقل درجة" id="${q.id}_min">
+          <input type="number" placeholder="أعلى درجة" id="${q.id}_max">
+          <button onclick="saveRange('${q.id}')">التالي</button>
+        </div>`;
+      }
+
+      html += '</div><div class="nav-buttons">';
+      if (current > 0) html += `<button onclick="prev()">السابق</button>`;
+      if (current < questions.length - 1) html += `<button onclick="next()">تخطي</button>`;
+      html += '</div>';
+      app.innerHTML = html;
+    }
+
+    function answer(id, value) {
+      answers[id] = value;
+      next();
+    }
+
+    function saveRange(id) {
+      const min = parseFloat(document.getElementById(id + '_min').value);
+      const max = parseFloat(document.getElementById(id + '_max').value);
+      if (!isNaN(min) && !isNaN(max)) {
+        answers[id] = { min, max };
+        next();
+      } else {
+        alert('يرجى إدخال قيم صحيحة.');
+      }
+    }
+
+    function next() {
+      if (current < questions.length - 1) {
+        current++;
+        renderQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function prev() {
+      if (current > 0) {
+        current--;
+        renderQuestion();
+      }
+    }
+
+    function showResult() {
+      const app = document.getElementById('app');
+      let html = '<h2>النتيجة التقريبية لمعدلك:</h2>';
+      let total = 0;
+      let count = 0;
+      for (let key in answers) {
+        const val = answers[key];
+        if (typeof val === 'object') {
+          const avg = (parseFloat(val.min) + parseFloat(val.max)) / 2;
+          total += avg * questions.find(q => q.id === key).weight;
+          count += questions.find(q => q.id === key).weight;
+        }
+      }
+      const avg = total / count;
+      html += `<div class="result">${avg.toFixed(2)} / 100</div>`;
+      app.innerHTML = html;
+    }
+
+    renderQuestion();
+  </script>
+</body>
+</html>
