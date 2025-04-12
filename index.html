@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -114,26 +113,24 @@
   <div class="container">
     <h1>حاسبة معدل الثانوية العامة الذكية</h1>
     <div id="app"></div>
-  </div>
-
-  <div class="footer">
+  </div>  <div class="footer">
     <p>برمجة وتصميم عبدالله الدرويش</p>
     <p>جميع الحقوق محفوظة &copy; 2025</p>
-  </div>
-
-  <script>
+  </div>  <script>
     const questions = [
       {
         id: 'mood',
         text: 'كيف كان شعورك العام أثناء فترة الامتحانات؟',
         options: ['مرتاح وواثق', 'متوتر بس مسيطر', 'ضايع شوي', 'مكتئب أو مرهق نفسيًا', 'ما كنت حاس بأي شي'],
-        weight: 1
+        weight: 1,
+        type: 'psychological'
       },
       {
         id: 'sleep',
         text: 'كيف كان نومك خلال فترة الامتحانات؟',
         options: ['منتظم جدًا', 'جيد نسبيًا', 'مضطرب شوي', 'ما كنت أنام', 'مش فاكر حتى'],
-        weight: 1
+        weight: 1,
+        type: 'psychological'
       },
       {
         id: 'studyHabits',
@@ -151,13 +148,15 @@
         id: 'stress',
         text: 'هل كنت تشعر بضغط نفسي خلال فترة الامتحانات؟',
         options: ['لا أبداً', 'قليل', 'متوسط', 'كثير', 'شديد جداً'],
-        weight: 1
+        weight: 1,
+        type: 'psychological'
       },
       {
         id: 'confidence',
         text: 'ما مدى ثقتك في إجاباتك؟',
         options: ['مطمئن تمامًا', 'إلى حد ما', 'مش واثق', 'مشكك في بعض الإجابات', 'متأكد من أخطاءي'],
-        weight: 1
+        weight: 1,
+        type: 'psychological'
       },
       {
         id: 'englishGrade',
@@ -181,7 +180,7 @@
         id: 'sourceValidity',
         text: 'هل كانت مصادر إجاباتك صحيحة وموثوقة؟',
         options: ['نعم 100%', 'غالبًا كانت صحيحة', 'بعض الإجابات مشكوك فيها', 'غالبًا كانت خاطئة'],
-        weight: 3
+        weight: 2
       },
       {
         id: 'arabicGrade',
@@ -283,25 +282,56 @@
       }
     }
 
+    function evaluatePsychologicalImpact() {
+      let score = 0;
+      let count = 0;
+
+      for (let q of questions.filter(q => q.type === 'psychological')) {
+        const val = answers[q.id];
+        if (val) {
+          const index = q.options.indexOf(val);
+          score += (q.options.length - index - 1); // الأفضل = رقم أقل
+          count++;
+        }
+      }
+
+      return count > 0 ? score / count : 1; // قيمة بين 0 و 1
+    }
+
     function showResult() {
       const app = document.getElementById('app');
       let html = '<h2>النتيجة التقريبية لمعدلك:</h2>';
+
       let total = 0;
       let count = 0;
+
       for (let key in answers) {
+        const q = questions.find(q => q.id === key);
         const val = answers[key];
         if (typeof val === 'object') {
-          const avg = (parseFloat(val.min) + parseFloat(val.max)) / 2;
-          total += avg * questions.find(q => q.id === key).weight;
-          count += questions.find(q => q.id === key).weight;
+          const avg = (val.min + val.max) / 2;
+          total += avg * q.weight;
+          count += q.weight;
         }
       }
-      const avg = total / count;
-      html += `<div class="result">${avg.toFixed(2)} / 100</div>`;
+
+      const baseAvg = total / count;
+      const psycheImpact = evaluatePsychologicalImpact();
+      const finalAvg = baseAvg * (0.7 + 0.3 * psycheImpact); // 30% تأثير نفسي
+
+      html += `<div class="result">${finalAvg.toFixed(2)} / 100</div>`;
+
+      if (psycheImpact >= 0.8) {
+        html += `<p style="text-align:center; color:#22c55e">حالتك النفسية ساعدتك كثيرًا في تحقيق هذا المعدل!</p>`;
+      } else if (psycheImpact <= 0.4) {
+        html += `<p style="text-align:center; color:#ef4444">حالتك النفسية السيئة أثّرت سلبًا على أدائك، حاول تعتني بنفسك أكثر.</p>`;
+      } else {
+        html += `<p style="text-align:center; color:#f59e0b">أداؤك كان متأثرًا جزئيًا بحالتك النفسية.</p>`;
+      }
+
       app.innerHTML = html;
     }
 
     renderQuestion();
-  </script>
-</body>
+  </script></body>
 </html>
