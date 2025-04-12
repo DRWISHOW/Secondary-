@@ -5,9 +5,7 @@
   <title>حاسبة معدل الثانوية العامة</title>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       font-family: 'Tajawal', sans-serif;
       background: linear-gradient(145deg, #f0f4f8, #ffffff);
@@ -118,116 +116,70 @@
     <p>جميع الحقوق محفوظة &copy; 2025</p>
   </div>  <script>
     const questions = [
-      {
-        id: 'mood',
-        text: 'كيف كان شعورك العام أثناء فترة الامتحانات؟',
-        options: ['مرتاح وواثق', 'متوتر بس مسيطر', 'ضايع شوي', 'مكتئب أو مرهق نفسيًا', 'ما كنت حاس بأي شي'],
-        weight: 1,
-        type: 'psychological'
-      },
-      {
-        id: 'sleep',
-        text: 'كيف كان نومك خلال فترة الامتحانات؟',
-        options: ['منتظم جدًا', 'جيد نسبيًا', 'مضطرب شوي', 'ما كنت أنام', 'مش فاكر حتى'],
-        weight: 1,
-        type: 'psychological'
-      },
-      {
-        id: 'studyHabits',
-        text: 'هل كنت تذاكر بانتظام طول السنة؟',
-        options: ['نعم بشكل يومي', 'أغلب الأيام', 'فقط أيام المراجعة', 'قبل الامتحان بس', 'ولا يوم فعليًا'],
-        weight: 2
-      },
-      {
-        id: 'schoolPerformance',
-        text: 'كيف كان أدائك العام في المدرسة؟',
-        options: ['ممتاز', 'جيد جدًا', 'جيد', 'متوسط', 'ضعيف'],
-        weight: 2
-      },
-      {
-        id: 'stress',
-        text: 'هل كنت تشعر بضغط نفسي خلال فترة الامتحانات؟',
-        options: ['لا أبداً', 'قليل', 'متوسط', 'كثير', 'شديد جداً'],
-        weight: 1,
-        type: 'psychological'
-      },
-      {
-        id: 'confidence',
-        text: 'ما مدى ثقتك في إجاباتك؟',
-        options: ['مطمئن تمامًا', 'إلى حد ما', 'مش واثق', 'مشكك في بعض الإجابات', 'متأكد من أخطاءي'],
-        weight: 1,
-        type: 'psychological'
-      },
-      {
-        id: 'englishGrade',
-        text: 'توقّعك لمادة الاحياء؟',
-        type: 'range',
-        weight: 3
-      },
-      {
-        id: 'biologyGrade',
-        text: 'توقّعك لمادة الإسلامية؟',
-        type: 'range',
-        weight: 3
-      },
-      {
-        id: 'cheating',
-        text: 'هل كنت تغش في الامتحانات؟',
-        options: ['لا أبداً', 'أحيانًا', 'غشيت في بعض المواد', 'غشيت في جميع المواد'],
-        weight: 2
-      },
-      {
-        id: 'sourceValidity',
-        text: 'هل كانت مصادر إجاباتك صحيحة وموثوقة؟',
-        options: ['نعم 100%', 'غالبًا كانت صحيحة', 'بعض الإجابات مشكوك فيها', 'غالبًا كانت خاطئة'],
-        weight: 2
-      },
-      {
-        id: 'arabicGrade',
-        text: 'توقّعك لمادة الفيزياء؟',
-        type: 'range',
-        weight: 3
-      },
-      {
-        id: 'mathGrade',
-        text: 'توقّعك لمادة الرياضيات (تفاضل + جبر وهندسة = مادة واحدة)',
-        type: 'range',
-        weight: 3
-      },
-      {
-        id: 'quranGrade',
-        text: 'توقّعك لمادة اللغة العربية؟',
-        type: 'range',
-        weight: 2
-      },
-      {
-        id: 'islamicGrade',
-        text: 'توقّعك لمادة اللغة الإنجليزية؟',
-        type: 'range',
-        weight: 2
-      },
-      {
-        id: 'chemistryGrade',
-        text: 'توقّعك لمادة الكيمياء؟',
-        type: 'range',
-        weight: 3
-      },
-      {
-        id: 'physicsGrade',
-        text: 'توقّعك لمادة القرآن الكريم؟',
-        type: 'range',
-        weight: 3
-      }
+      { id: 'mood', text: 'كيف كان شعورك العام أثناء فترة الامتحانات؟', options: ['مرتاح وواثق', 'متوتر بس مسيطر', 'ضايع شوي', 'مكتئب أو مرهق نفسيًا', 'ما كنت حاس بأي شي'], weight: 1 },
+      { id: 'sleep', text: 'كيف كان نومك خلال فترة الامتحانات؟', options: ['منتظم جدًا', 'جيد نسبيًا', 'مضطرب شوي', 'ما كنت أنام', 'مش فاكر حتى'], weight: 1 },
+      { id: 'studyHabits', text: 'هل كنت تذاكر بانتظام طول السنة؟', options: ['نعم بشكل يومي', 'أغلب الأيام', 'فقط أيام المراجعة', 'قبل الامتحان بس', 'ولا يوم فعليًا'], weight: 2 },
+      { id: 'schoolPerformance', text: 'كيف كان أدائك العام في المدرسة؟', options: ['ممتاز', 'جيد جدًا', 'جيد', 'متوسط', 'ضعيف'], weight: 2 },
+      { id: 'stress', text: 'هل كنت تشعر بضغط نفسي خلال فترة الامتحانات؟', options: ['لا أبداً', 'قليل', 'متوسط', 'كثير', 'شديد جداً'], weight: 1 },
+      { id: 'confidence', text: 'ما مدى ثقتك في إجاباتك؟', options: ['مطمئن تمامًا', 'إلى حد ما', 'مش واثق', 'مشكك في بعض الإجابات', 'متأكد من أخطاءي'], weight: 1 },
+      { id: 'englishGrade', text: 'توقّعك لمادة الاحياء؟', type: 'range', weight: 3 },
+      { id: 'biologyGrade', text: 'توقّعك لمادة الإسلامية؟', type: 'range', weight: 3 },
+      { id: 'cheating', text: 'هل كنت تغش في الامتحانات؟', options: ['لا أبداً', 'أحيانًا', 'غشيت في بعض المواد', 'غشيت في جميع المواد'], weight: 2 },
+      { id: 'sourceValidity', text: 'هل كانت مصادر إجاباتك صحيحة وموثوقة؟', options: ['نعم 100%', 'غالبًا كانت صحيحة', 'بعض الإجابات مشكوك فيها', 'غالبًا كانت خاطئة'], weight: 3 },
+      { id: 'arabicGrade', text: 'توقّعك لمادة الفيزياء؟', type: 'range', weight: 3 },
+      { id: 'mathGrade', text: 'توقّعك لمادة الرياضيات (تفاضل + جبر وهندسة = مادة واحدة)', type: 'range', weight: 3 },
+      { id: 'quranGrade', text: 'توقّعك لمادة اللغة العربية؟', type: 'range', weight: 2 },
+      { id: 'islamicGrade', text: 'توقّعك لمادة اللغة الإنجليزية؟', type: 'range', weight: 2 },
+      { id: 'chemistryGrade', text: 'توقّعك لمادة الكيمياء؟', type: 'range', weight: 3 },
+      { id: 'physicsGrade', text: 'توقّعك لمادة القرآن الكريم؟', type: 'range', weight: 3 }
     ];
 
     let current = 0;
     const answers = {};
+    const psychologicalWeights = {
+      'ممتاز': 1,
+      'جيد جدًا': 0.9,
+      'جيد': 0.8,
+      'متوسط': 0.7,
+      'ضعيف': 0.6,
+      'نعم بشكل يومي': 1,
+      'أغلب الأيام': 0.9,
+      'فقط أيام المراجعة': 0.7,
+      'قبل الامتحان بس': 0.6,
+      'ولا يوم فعليًا': 0.5,
+      'مطمئن تمامًا': 1,
+      'إلى حد ما': 0.85,
+      'مش واثق': 0.7,
+      'مشكك في بعض الإجابات': 0.6,
+      'متأكد من أخطاءي': 0.4,
+      'لا أبداً': 1,
+      'قليل': 0.85,
+      'متوسط': 0.7,
+      'كثير': 0.5,
+      'شديد جداً': 0.3,
+      'مرتاح وواثق': 1,
+      'متوتر بس مسيطر': 0.9,
+      'ضايع شوي': 0.7,
+      'مكتئب أو مرهق نفسيًا': 0.5,
+      'ما كنت حاس بأي شي': 0.6,
+      'منتظم جدًا': 1,
+      'جيد نسبيًا': 0.9,
+      'مضطرب شوي': 0.7,
+      'ما كنت أنام': 0.5,
+      'مش فاكر حتى': 0.6,
+      'نعم 100%': 1,
+      'غالبًا كانت صحيحة': 0.85,
+      'بعض الإجابات مشكوك فيها': 0.6,
+      'غالبًا كانت خاطئة': 0.4,
+      'أحيانًا': 0.9,
+      'غشيت في بعض المواد': 0.7,
+      'غشيت في جميع المواد': 0.5
+    };
 
     function renderQuestion() {
       const app = document.getElementById('app');
       const q = questions[current];
-      let html = `<div class="question">
-        <h2>${q.text}</h2>`;
+      let html = `<div class="question"><h2>${q.text}</h2>`;
 
       if (q.options) {
         html += '<div class="options">';
@@ -282,53 +234,34 @@
       }
     }
 
-    function evaluatePsychologicalImpact() {
-      let score = 0;
-      let count = 0;
-
-      for (let q of questions.filter(q => q.type === 'psychological')) {
-        const val = answers[q.id];
-        if (val) {
-          const index = q.options.indexOf(val);
-          score += (q.options.length - index - 1); // الأفضل = رقم أقل
-          count++;
-        }
-      }
-
-      return count > 0 ? score / count : 1; // قيمة بين 0 و 1
-    }
-
     function showResult() {
       const app = document.getElementById('app');
       let html = '<h2>النتيجة التقريبية لمعدلك:</h2>';
-
       let total = 0;
       let count = 0;
+      let minBound = 0;
+      let maxBound = 0;
+      let psychologyEffect = 1;
 
       for (let key in answers) {
-        const q = questions.find(q => q.id === key);
         const val = answers[key];
+        const question = questions.find(q => q.id === key);
+
         if (typeof val === 'object') {
           const avg = (val.min + val.max) / 2;
-          total += avg * q.weight;
-          count += q.weight;
+          total += avg * question.weight;
+          count += question.weight;
+          minBound += val.min * question.weight;
+          maxBound += val.max * question.weight;
+        } else if (psychologicalWeights[val] !== undefined) {
+          psychologyEffect *= psychologicalWeights[val];
         }
       }
 
-      const baseAvg = total / count;
-      const psycheImpact = evaluatePsychologicalImpact();
-      const finalAvg = baseAvg * (0.7 + 0.3 * psycheImpact); // 30% تأثير نفسي
+      const avg = (total / count) * psychologyEffect;
+      const adjusted = Math.max(Math.min(avg, maxBound / count), minBound / count);
 
-      html += `<div class="result">${finalAvg.toFixed(2)} / 100</div>`;
-
-      if (psycheImpact >= 0.8) {
-        html += `<p style="text-align:center; color:#22c55e">حالتك النفسية ساعدتك كثيرًا في تحقيق هذا المعدل!</p>`;
-      } else if (psycheImpact <= 0.4) {
-        html += `<p style="text-align:center; color:#ef4444">حالتك النفسية السيئة أثّرت سلبًا على أدائك، حاول تعتني بنفسك أكثر.</p>`;
-      } else {
-        html += `<p style="text-align:center; color:#f59e0b">أداؤك كان متأثرًا جزئيًا بحالتك النفسية.</p>`;
-      }
-
+      html += `<div class="result">${adjusted.toFixed(2)} / 100</div>`;
       app.innerHTML = html;
     }
 
